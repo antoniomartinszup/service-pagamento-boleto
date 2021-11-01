@@ -1,10 +1,10 @@
-<h1>Projeto Conta Digital</h1> 
+<h1>Projeto Pagamento Boleto</h1> 
 
 <p align="center">
   <img src="https://img.shields.io/static/v1?label=spring&message=framework&color=green&style=for-the-badge&logo=SPRING"/>
-  <img src="http://img.shields.io/static/v1?label=Spring&message=2.5.5&color=red&style=for-the-badge&logo=spring"/>
-  <img src="http://img.shields.io/static/v1?label=TESTES&message=%3E75&color=GREEN&style=for-the-badge"/>
-   <img src="http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=RED&style=for-the-badge"/>
+  <img src="http://img.shields.io/static/v1?label=Spring&message=2.5.6&color=red&style=for-the-badge&logo=spring"/>
+  <img src="http://img.shields.io/static/v1?label=TESTES&message=%3E1&color=GREEN&style=for-the-badge"/>
+  <img src="http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=RED&style=for-the-badge"/>
 </p>
 
 
