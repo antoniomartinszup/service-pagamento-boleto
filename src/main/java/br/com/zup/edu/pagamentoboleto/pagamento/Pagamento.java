@@ -18,17 +18,13 @@ public class Pagamento {
     private BigDecimal valor;
     private LocalDateTime dataPagamento = LocalDateTime.now();
 
-    @Enumerated(EnumType.STRING)
-    private Tipo tipo;
-
     @Deprecated
     public Pagamento() {
     }
 
-    public Pagamento(Long clienteId, BigDecimal valor, Tipo tipo) {
+    public Pagamento(Long clienteId, BigDecimal valor) {
         this.clienteId = clienteId;
         this.valor = valor;
-        this.tipo = tipo;
     }
 
     public Long getId() {
@@ -45,9 +41,5 @@ public class Pagamento {
 
     public LocalDateTime getDataPagamento() {
         return dataPagamento;
-    }
-
-    public Tipo getTipo() {
-        return tipo;
     }
 }

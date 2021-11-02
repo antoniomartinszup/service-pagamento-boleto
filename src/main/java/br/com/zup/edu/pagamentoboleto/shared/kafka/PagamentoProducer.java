@@ -21,8 +21,8 @@ public class PagamentoProducer {
 
     public void send(PagamentoRecord pagamentoRecord){
         kafkaTemplate.send(topic, pagamentoRecord).addCallback(
-                success -> logger.info("Messagem enviada para cliente = " + pagamentoRecord.getClienteId()),
-                failure -> logger.info("Message não enviada para o cliente = " + pagamentoRecord.getClienteId())
+                success -> logger.info("Messagem enviada para cliente = "),
+                failure -> logger.info("Message não enviada para o cliente = ")
         );
     }
 }
