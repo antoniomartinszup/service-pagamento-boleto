@@ -30,23 +30,23 @@ public class ErroDeValidacaoHandler {
     }
 
     @ExceptionHandler(ResponseStatusException.class)
-    public ResponseEntity<ErroDeFormularioDto> handleResponseStatusException(ResponseStatusException exception) {
-        return ResponseEntity.status(exception.getStatus()).body(new ErroDeFormularioDto(
+    public ErroDeFormularioDto handleResponseStatusException(ResponseStatusException exception) {
+        return new ErroDeFormularioDto(
                 LocalDateTime.now(), exception.getStatus().value(),
-                exception.getStatus().toString(), exception.getReason()));
+                exception.getStatus().toString(), exception.getReason());
     }
 
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public List<ErroDeFormulario> handle(MethodArgumentNotValidException exception) {
-        List<ErroDeFormulario> dto = new ArrayList<>();
+    public ErroDeFormularioDto handle(MethodArgumentNotValidException exception) {
 
+        StringBuilder mensagem = new StringBuilder();
         List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
-        fieldErrors.forEach(e -> {
-            String mensagem = messageSource.getMessage(e, LocaleContextHolder.getLocale());
-            ErroDeFormulario erro = new ErroDeFormulario(e.getField(), mensagem);
-            dto.add(erro);
-        });
-        return dto;
+        for(FieldError error: fieldErrors)
+            mensagem.append(messageSource.getMessage(error, LocaleContextHolder.getLocale())).append(";");
+
+        return new ErroDeFormularioDto(
+                LocalDateTime.now(), HttpStatus.BAD_REQUEST.value(),
+                HttpStatus.BAD_REQUEST.getReasonPhrase(), mensagem.toString());
     }
 }
