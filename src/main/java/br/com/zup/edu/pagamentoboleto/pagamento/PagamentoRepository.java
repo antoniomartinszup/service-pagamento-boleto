@@ -5,12 +5,12 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PagamentoRepository extends JpaRepository<Pagamento, Long> {
 
-//    @Query("SELECT * FROM Pagamento WHERE dataPagamento BETWEEN :inicio and :termino")
-//    List<PagamentoResponse> findByPeriod(LocalDate inicio, LocalDate  termino);
-
     List<Pagamento> findAllByDataPagamentoBetween(LocalDate inicio, LocalDate termino);
+
+    Optional<Pagamento> findByCodigoDeBarras(String codigoDeBarras);
 }

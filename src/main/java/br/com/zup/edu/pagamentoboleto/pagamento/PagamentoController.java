@@ -2,13 +2,10 @@ package br.com.zup.edu.pagamentoboleto.pagamento;
 
 import br.com.zup.edu.pagamentoboleto.integration.banco.BancoClient;
 import br.com.zup.edu.pagamentoboleto.integration.banco.BoletoResponse;
-import feign.FeignException;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
@@ -25,25 +22,21 @@ public class PagamentoController {
     @Autowired
     private BancoClient bancoClient;
 
-    @PostMapping("/{codigoDeBarras}")
-    public BoletoResponse cadastraPagamento(@RequestBody @Valid PagamentoRequest pagamentoRequest) {
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping
+    public BoletoResponse cadastrarPagamento(@RequestBody @Valid PagamentoRequest pagamentoRequest) {
 
-        bancoClient = Mockito.mock(BancoClient.class);
-
-        // consultar codigo brrs sistema bancario
-        try {
-            var statusBanco = bancoClient.buscaDadosBoleto(pagamentoRequest.getCodigoDeBarras());
-        } catch (FeignException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "Serviço do Banco fora do ar");
-        }
-        return new BoletoResponse(pagamentoRequest.getCodigoDeBarras());
+        // consultar codigo de barras no sistema bancario
+        var boleto = bancoClient.buscarBoleto(pagamentoRequest.getCodigoDeBarras());
+        pagamentoRepository.save(new Pagamento(pagamentoRequest.getCodigoDeBarras(), boleto.getValorComJuros()));
+        return boleto;
     }
     // persistir pagamento no banco de dados
-    // retornar valor e status do pagamento para o orquestrado
+    // retornar valor e status do pagamento para o orquestrador
 
-    @PatchMapping("/{id}/confirmar")
-    public ResponseEntity<String> confirmarPagamento(@PathVariable Long id) {
-        Pagamento pagamento = pagamentoRepository.findById(id).orElseThrow(
+    @PatchMapping("/{codigoDeBarras}/confirmar")
+    public ResponseEntity<String> confirmarPagamento(@PathVariable String codigoDeBarras) {
+        Pagamento pagamento = pagamentoRepository.findByCodigoDeBarras(codigoDeBarras).orElseThrow(
                 () -> new IllegalArgumentException("Esse pagamento não existe."));
 
         pagamento.setStatusPagamento(StatusPagamento.CONFIRMADO);
@@ -52,7 +45,7 @@ public class PagamentoController {
     }
 
     @GetMapping("/periodo")
-    public List<PagamentoResponse> buscaPorPeriodo(@RequestParam("inicio") LocalDate inicio,
+    public List<PagamentoResponse> buscarPorPeriodo(@RequestParam("inicio") LocalDate inicio,
                                                    @RequestParam("termino") LocalDate  termino) {
         List<Pagamento> pagamentos = pagamentoRepository.findAllByDataPagamentoBetween(inicio, termino);
         return pagamentos.stream().map(PagamentoResponse::new).collect(Collectors.toList());
