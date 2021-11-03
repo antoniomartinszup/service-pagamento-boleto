@@ -16,7 +16,10 @@ public class Pagamento {
 
     @Column(nullable = false)
     private BigDecimal valor;
+
     private LocalDateTime dataPagamento = LocalDateTime.now();
+
+    private StatusPagamento statusPagamento = StatusPagamento.PENDENTE;
 
     @Deprecated
     public Pagamento() {
@@ -41,5 +44,13 @@ public class Pagamento {
 
     public LocalDateTime getDataPagamento() {
         return dataPagamento;
+    }
+
+    public StatusPagamento getStatusPagamento() {
+        return statusPagamento;
+    }
+
+    public void setStatusPagamento(StatusPagamento statusPagamento) {
+        this.statusPagamento = statusPagamento;
     }
 }
