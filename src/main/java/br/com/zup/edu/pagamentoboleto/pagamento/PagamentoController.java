@@ -2,6 +2,7 @@ package br.com.zup.edu.pagamentoboleto.pagamento;
 
 import br.com.zup.edu.pagamentoboleto.integration.banco.BancoClient;
 import br.com.zup.edu.pagamentoboleto.integration.banco.BoletoResponse;
+import br.com.zup.edu.pagamentoboleto.shared.exception.PagamentoNaoExistenteException;
 import br.com.zup.edu.pagamentoboleto.shared.kafka.PagamentoProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -38,9 +39,9 @@ public class PagamentoController {
     }
 
     @PatchMapping("/{codigoDeBarras}/confirmar")
-    public ResponseEntity<String> confirmarPagamento(@PathVariable String codigoDeBarras) {
+    public ResponseEntity<String> confirmarPagamento(@PathVariable String codigoDeBarras) throws Exception {
         Pagamento pagamento = pagamentoRepository.findByCodigoDeBarras(codigoDeBarras).orElseThrow(
-                () -> new IllegalArgumentException("Esse pagamento não existe."));
+                () -> new PagamentoNaoExistenteException("Esse pagamento não existe."));
 
         pagamento.setStatusPagamento(StatusPagamento.CONFIRMADO);
         pagamentoRepository.save(pagamento);

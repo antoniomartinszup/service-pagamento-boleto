@@ -3,14 +3,14 @@ package br.com.zup.edu.pagamentoboleto.shared.exception;
 
 import java.time.LocalDateTime;
 
-public class ErroDeFormularioDto {
+public class ErroDto {
 
     private final LocalDateTime momentoErro;
     private final Integer codigoStatus;
     private final String status;
     private final String mensagem;
 
-    public ErroDeFormularioDto(LocalDateTime momentoErro, Integer codigoStatus, String status, String mensagem) {
+    public ErroDto(LocalDateTime momentoErro, Integer codigoStatus, String status, String mensagem) {
         this.momentoErro = momentoErro;
         this.codigoStatus = codigoStatus;
         this.status = status;

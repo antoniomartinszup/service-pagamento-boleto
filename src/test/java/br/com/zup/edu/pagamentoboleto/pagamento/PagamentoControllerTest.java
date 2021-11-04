@@ -92,4 +92,16 @@ public class PagamentoControllerTest {
                 .andExpect(status().isOk())
                 .andReturn().getResponse();
     }
+
+    @Test
+    public void deveriaDarNotFoundAoTentarConfirmarPagamentoQueNaoExiste() throws Exception {
+
+        String path = "/pagamentos/12345678901231250320210000023450/confirmar";
+
+        mockMvc.perform(MockMvcRequestBuilders.patch(path)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andReturn();
+        assertFalse(pagamentoRepository.existsByCodigoDeBarras("12345678901231250320210000023450"));
+    }
 }
