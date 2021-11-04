@@ -3,10 +3,10 @@
 <p align="center">
   <img src="https://img.shields.io/static/v1?label=spring&message=framework&color=green&style=for-the-badge&logo=SPRING"/>
   <img src="http://img.shields.io/static/v1?label=Spring&message=2.5.6&color=red&style=for-the-badge&logo=spring"/>
-  <img src="https://img.shields.io/static/v1?label=&message=Kafka&color=white&style=for-the-badge&logo=Kafka"/>
-  <img src="https://img.shields.io/static/v1?label=&message=Docker&color=white&style=for-the-badge&logo=Docker"/>
-  <img src="https://img.shields.io/static/v1?label=&message=Jaeger&color=white&style=for-the-badge&logo=Jaeger"/>
-  <img src="https://img.shields.io/static/v1?label=&message=Prometheus&color=white&style=for-the-badge&logo=Prometheus"/>
+  <img src="https://img.shields.io/static/v1?label=&message=Kafka&color=gray&style=for-the-badge&logo=Kafka"/>
+  <img src="https://img.shields.io/static/v1?label=&message=Docker&color=gray&style=for-the-badge&logo=Docker"/>
+  <img src="https://img.shields.io/static/v1?label=&message=Jaeger&color=gray&style=for-the-badge&logo=Jaeger"/>
+  <img src="https://img.shields.io/static/v1?label=&message=Prometheus&color=gray&style=for-the-badge&logo=Prometheus"/>
   <img src="http://img.shields.io/static/v1?label=TESTES&message=%3E1&color=GREEN&style=for-the-badge"/>
   <img src="http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=RED&style=for-the-badge"/>
 </p>
