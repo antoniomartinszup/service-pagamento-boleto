@@ -43,7 +43,7 @@
   - Corpo: {"codigoDeBarras": "..."}
   - Status Code: 201 CREATED
 * Confirmar pagamento
-  - PATCH -> pagamentos/{codigoDeBarras}/confirmar
+  - PATCH -> /pagamentos/{codigoDeBarras}/confirmar
   - Status Code: 200 OK
 * Consultar pagamentos por período
   - GET -> /pagamentos/periodo
