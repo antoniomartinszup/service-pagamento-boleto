@@ -10,4 +10,8 @@ public class PagamentoRequest {
     public String getCodigoDeBarras() {
         return codigoDeBarras;
     }
+
+    public void setCodigoDeBarras(String codigoDeBarras) {
+        this.codigoDeBarras = codigoDeBarras;
+    }
 }

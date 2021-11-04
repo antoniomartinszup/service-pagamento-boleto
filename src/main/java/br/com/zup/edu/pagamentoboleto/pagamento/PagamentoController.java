@@ -45,9 +45,9 @@ public class PagamentoController {
     }
 
     @GetMapping("/periodo")
-    public List<PagamentoResponse> buscarPorPeriodo(@RequestParam("inicio") LocalDate inicio,
-                                                   @RequestParam("termino") LocalDate  termino) {
+    public List<ConsultaPagamentoResponse> buscarPorPeriodo(@RequestParam("inicio") LocalDate inicio,
+                                                            @RequestParam("termino") LocalDate  termino) {
         List<Pagamento> pagamentos = pagamentoRepository.findAllByDataPagamentoBetween(inicio, termino);
-        return pagamentos.stream().map(PagamentoResponse::new).collect(Collectors.toList());
+        return pagamentos.stream().map(ConsultaPagamentoResponse::new).collect(Collectors.toList());
     }
 }

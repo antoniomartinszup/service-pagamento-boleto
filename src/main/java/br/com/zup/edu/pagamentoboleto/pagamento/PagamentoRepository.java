@@ -13,4 +13,6 @@ public interface PagamentoRepository extends JpaRepository<Pagamento, Long> {
     List<Pagamento> findAllByDataPagamentoBetween(LocalDate inicio, LocalDate termino);
 
     Optional<Pagamento> findByCodigoDeBarras(String codigoDeBarras);
+
+    Boolean existsByCodigoDeBarras(String codigoDeBarras);
 }
