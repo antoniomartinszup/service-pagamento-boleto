@@ -15,8 +15,9 @@ public class PagamentoRequest {
         return codigoDeBarras;
     }
 
-    public void setCodigoDeBarras(String codigoDeBarras) {
+    public PagamentoRequest(String codigoDeBarras, Long clienteId) {
         this.codigoDeBarras = codigoDeBarras;
+        this.clienteId = clienteId;
     }
 
     public Long getClienteId() {

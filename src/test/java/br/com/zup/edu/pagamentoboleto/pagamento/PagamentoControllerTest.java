@@ -48,8 +48,7 @@ public class PagamentoControllerTest {
 
     @Test
     public void deveriaCadastrarPagamentoComSucesso() throws Exception {
-        PagamentoRequest request = new PagamentoRequest();
-        request.setCodigoDeBarras("12345678901231250320210000023450");
+        PagamentoRequest request = new PagamentoRequest("12345678901231250320210000023450", 1L);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/pagamentos/valorTotal")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -84,7 +83,7 @@ public class PagamentoControllerTest {
 
         LocalDate hoje = LocalDate.now();
         String dataFormatada = hoje.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        String url = "/pagamentos/periodo/?inicio=" + dataFormatada + "&termino=" + dataFormatada;
+        String url = "/pagamentos/periodo/?clienteId=1&inicio=" + dataFormatada + "&termino=" + dataFormatada;
 
         mockMvc.perform(MockMvcRequestBuilders.get(url)
                         .accept(MediaType.APPLICATION_JSON))
