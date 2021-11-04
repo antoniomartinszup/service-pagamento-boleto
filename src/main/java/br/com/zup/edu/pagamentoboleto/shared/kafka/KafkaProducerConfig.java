@@ -42,5 +42,4 @@ public class KafkaProducerConfig {
     public KafkaTemplate<String, PagamentoRecord> carafkaTemplate() {
         return new KafkaTemplate<>(PagamentoProducerFactory());
     }
-
 }
