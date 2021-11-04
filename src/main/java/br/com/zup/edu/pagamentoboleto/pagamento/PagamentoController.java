@@ -2,6 +2,7 @@ package br.com.zup.edu.pagamentoboleto.pagamento;
 
 import br.com.zup.edu.pagamentoboleto.integration.banco.BancoClient;
 import br.com.zup.edu.pagamentoboleto.integration.banco.BoletoResponse;
+import br.com.zup.edu.pagamentoboleto.shared.kafka.PagamentoProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,9 @@ public class PagamentoController {
     @Autowired
     private BancoClient bancoClient;
 
+    @Autowired
+    private PagamentoProducer pagamentoProducer;
+
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/valorTotal")
     public BoletoResponse cadastrarPagamento(@RequestBody @Valid PagamentoRequest pagamentoRequest) {
@@ -40,6 +44,7 @@ public class PagamentoController {
 
         pagamento.setStatusPagamento(StatusPagamento.CONFIRMADO);
         pagamentoRepository.save(pagamento);
+        pagamentoProducer.send(new PagamentoRecord(pagamento));
         return ResponseEntity.ok("Pagamento confirmado.");
     }
 

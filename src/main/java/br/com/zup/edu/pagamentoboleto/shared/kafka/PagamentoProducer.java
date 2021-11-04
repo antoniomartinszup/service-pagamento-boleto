@@ -21,8 +21,10 @@ public class PagamentoProducer {
 
     public void send(PagamentoRecord pagamentoRecord){
         kafkaTemplate.send(topic, pagamentoRecord).addCallback(
-                success -> logger.info("Messagem enviada para cliente = "),
-                failure -> logger.info("Message não enviada para o cliente = ")
+                success -> logger.info("Messagem enviada para cliente com codigo de barras = "
+                        + pagamentoRecord.getCodigoDeBarras()),
+                failure -> logger.info("Message não enviada para o cliente com codigo de barras = "
+                        + pagamentoRecord.getCodigoDeBarras())
         );
     }
 }
