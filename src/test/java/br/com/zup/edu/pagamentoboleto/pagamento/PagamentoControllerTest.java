@@ -48,7 +48,10 @@ public class PagamentoControllerTest {
 
     @Test
     public void deveriaCadastrarPagamentoComSucesso() throws Exception {
-        PagamentoRequest request = new PagamentoRequest("12345678901231250320210000023450", 1L);
+        PagamentoRequest request = new PagamentoRequest(
+                "12345678901231250320210000023450",
+                1L,
+                "tales.araujo@zup.com.br");
 
         mockMvc.perform(MockMvcRequestBuilders.post("/pagamentos/valorTotal")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -63,7 +66,11 @@ public class PagamentoControllerTest {
     @Test
     public void deveriaConfirmarPagamentoComSucesso() throws Exception {
         Pagamento p = pagamentoRepository.save(
-                new Pagamento("12345678901231250320210000023450", new BigDecimal(10), 1L));
+                new Pagamento(
+                        "12345678901231250320210000023450",
+                        new BigDecimal(10),
+                        1L,
+                        "tales.araujo@zup.com.br"));
 
         mockMvc.perform(MockMvcRequestBuilders.patch("/pagamentos/" + p.getCodigoDeBarras() + "/confirmar")
                         .accept(MediaType.APPLICATION_JSON))
@@ -77,7 +84,11 @@ public class PagamentoControllerTest {
 
     @Test
     public void deveriaRetonarConsultaPorPeriodo() throws Exception {
-        Pagamento p = new Pagamento("12345678901231250320210000023450", new BigDecimal(10), 1L);
+        Pagamento p = new Pagamento(
+                "12345678901231250320210000023450",
+                new BigDecimal(10),
+                1L,
+                "tales.araujo@zup.com.br");
         p.setStatusPagamento(StatusPagamento.CONFIRMADO);
         pagamentoRepository.save(p);
 

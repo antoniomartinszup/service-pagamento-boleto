@@ -1,6 +1,7 @@
 package br.com.zup.edu.pagamentoboleto.pagamento;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -16,6 +17,9 @@ public class Pagamento {
 
     @NotNull
     private Long clienteId;
+
+    @Email
+    private String emailDestinatario;
 
     @NotBlank
     @Column(nullable = false)
@@ -36,10 +40,11 @@ public class Pagamento {
     public Pagamento() {
     }
 
-    public Pagamento(String codigoDeBarras, BigDecimal valor, Long clienteId) {
+    public Pagamento(String codigoDeBarras, BigDecimal valor, Long clienteId, String emailDestinatario) {
         this.codigoDeBarras = codigoDeBarras;
         this.valor = valor;
         this.clienteId = clienteId;
+        this.emailDestinatario = emailDestinatario;
     }
 
     public Long getId() {
@@ -64,5 +69,9 @@ public class Pagamento {
 
     public void setStatusPagamento(StatusPagamento statusPagamento) {
         this.statusPagamento = statusPagamento;
+    }
+
+    public String getEmailDestinatario() {
+        return emailDestinatario;
     }
 }

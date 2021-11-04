@@ -37,7 +37,8 @@ public class PagamentoController {
         pagamentoRepository.save(new Pagamento(
                 pagamentoRequest.getCodigoDeBarras(),
                 boleto.getValorComJuros(),
-                pagamentoRequest.getClienteId()));
+                pagamentoRequest.getClienteId(),
+                pagamentoRequest.getEmailDestinatario()));
         return boleto;
     }
 
