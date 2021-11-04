@@ -1,11 +1,14 @@
 package br.com.zup.edu.pagamentoboleto.pagamento;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class ConsultaPagamentoResponse {
 
-    private LocalDateTime dataPagamento;
+    private LocalDate dataPagamento;
     private BigDecimal valorTotalPago;
 
     public ConsultaPagamentoResponse(Pagamento pagamento) {

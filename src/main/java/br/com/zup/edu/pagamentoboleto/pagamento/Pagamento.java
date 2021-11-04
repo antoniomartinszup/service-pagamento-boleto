@@ -5,7 +5,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 public class Pagamento {
@@ -23,7 +23,7 @@ public class Pagamento {
     private BigDecimal valor;
 
     @NotNull
-    private LocalDateTime dataPagamento = LocalDateTime.now();
+    private LocalDate dataPagamento = LocalDate.now();
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -50,7 +50,7 @@ public class Pagamento {
         return valor;
     }
 
-    public LocalDateTime getDataPagamento() {
+    public LocalDate getDataPagamento() {
         return dataPagamento;
     }
 
