@@ -19,4 +19,6 @@ public interface PagamentoRepository extends JpaRepository<Pagamento, Long> {
     Optional<Pagamento> findByCodigoDeBarras(String codigoDeBarras);
 
     Boolean existsByCodigoDeBarras(String codigoDeBarras);
+
+    Boolean existsByCodigoDeBarrasAndStatusPagamento(String codigoDeBarras, StatusPagamento status);
 }

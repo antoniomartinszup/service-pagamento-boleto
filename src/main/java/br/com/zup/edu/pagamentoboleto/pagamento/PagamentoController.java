@@ -2,7 +2,7 @@ package br.com.zup.edu.pagamentoboleto.pagamento;
 
 import br.com.zup.edu.pagamentoboleto.integration.banco.BancoClient;
 import br.com.zup.edu.pagamentoboleto.integration.banco.BoletoResponse;
-import br.com.zup.edu.pagamentoboleto.shared.exception.PagamentoNaoExistenteException;
+import br.com.zup.edu.pagamentoboleto.shared.exception.*;
 import br.com.zup.edu.pagamentoboleto.shared.kafka.PagamentoProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -30,12 +30,19 @@ public class PagamentoController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/valorTotal")
-    public BoletoResponse cadastrarPagamento(@RequestBody @Valid PagamentoRequest pagamentoRequest) {
+    public BoletoResponse cadastrarPagamento(@RequestBody @Valid PagamentoRequest pagamentoRequest) throws Exception {
+
+        String codigoDeBarras = pagamentoRequest.getCodigoDeBarras();
+
+        if (pagamentoRepository.existsByCodigoDeBarrasAndStatusPagamento(codigoDeBarras, StatusPagamento.CONFIRMADO))
+            throw new RegraDeNegocioException("Esse boleto já foi pago.");
+        else if (pagamentoRepository.existsByCodigoDeBarrasAndStatusPagamento(codigoDeBarras, StatusPagamento.PENDENTE))
+            throw new RegraDeNegocioException("Esse boleto já tem um pagamento pendente de confirmação.");
 
         // consultar codigo de barras no sistema bancario
-        var boleto = bancoClient.buscarBoleto(pagamentoRequest.getCodigoDeBarras());
+        var boleto = bancoClient.buscarBoleto(codigoDeBarras);
         pagamentoRepository.save(new Pagamento(
-                pagamentoRequest.getCodigoDeBarras(),
+                codigoDeBarras,
                 boleto.getValorComJuros(),
                 pagamentoRequest.getClienteId(),
                 pagamentoRequest.getEmailDestinatario()));
@@ -45,7 +52,10 @@ public class PagamentoController {
     @PatchMapping("/{codigoDeBarras}/confirmar")
     public ResponseEntity<String> confirmarPagamento(@PathVariable String codigoDeBarras) throws Exception {
         Pagamento pagamento = pagamentoRepository.findByCodigoDeBarras(codigoDeBarras).orElseThrow(
-                () -> new PagamentoNaoExistenteException("Esse pagamento não existe."));
+                () -> new RegraDeNegocioException("Esse pagamento não existe."));
+
+        if (pagamentoRepository.existsByCodigoDeBarrasAndStatusPagamento(codigoDeBarras, StatusPagamento.CONFIRMADO))
+            throw new RegraDeNegocioException("Esse boleto já tem um pagamento confirmado.");
 
         pagamento.setStatusPagamento(StatusPagamento.CONFIRMADO);
         pagamentoRepository.save(pagamento);

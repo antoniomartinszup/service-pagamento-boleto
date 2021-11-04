@@ -3,14 +3,14 @@ package br.com.zup.edu.pagamentoboleto.shared.exception;
 
 import java.time.LocalDateTime;
 
-public class ErroDto {
+public class ApplicationExceptionResponse {
 
     private final LocalDateTime momentoErro;
     private final Integer codigoStatus;
     private final String status;
     private final String mensagem;
 
-    public ErroDto(LocalDateTime momentoErro, Integer codigoStatus, String status, String mensagem) {
+    public ApplicationExceptionResponse(LocalDateTime momentoErro, Integer codigoStatus, String status, String mensagem) {
         this.momentoErro = momentoErro;
         this.codigoStatus = codigoStatus;
         this.status = status;
