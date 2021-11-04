@@ -45,7 +45,7 @@ public class PagamentoControllerTest {
         PagamentoRequest request = new PagamentoRequest();
         request.setCodigoDeBarras("12345678901231250320210000023450");
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/pagamentos")
+        mockMvc.perform(MockMvcRequestBuilders.post("/pagamentos/valorTotal")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(request))
                         .accept(MediaType.APPLICATION_JSON))
