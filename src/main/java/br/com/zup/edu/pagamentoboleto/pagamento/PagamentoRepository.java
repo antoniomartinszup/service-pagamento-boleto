@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface PagamentoRepository extends JpaRepository<Pagamento, Long> {
 
-    List<Pagamento> findAllByDataPagamentoBetween(LocalDate inicio, LocalDate termino);
+    List<Pagamento> findAllByDataPagamentoBetweenAndStatusPagamento(LocalDate inicio, LocalDate termino, StatusPagamento status);
 
     Optional<Pagamento> findByCodigoDeBarras(String codigoDeBarras);
 

@@ -14,6 +14,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -76,21 +78,19 @@ public class PagamentoControllerTest {
 
     @Test
     public void deveriaRetonarConsultaPorPeriodo() throws Exception {
-        PagamentoRequest request = new PagamentoRequest();
-        request.setCodigoDeBarras("12345678901231250320210000023450");
+        Pagamento p = new Pagamento("12345678901231250320210000023450", new BigDecimal(10));
+        p.setStatusPagamento(StatusPagamento.CONFIRMADO);
+        pagamentoRepository.save(p);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/pagamentos/valorTotal")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(mapper.writeValueAsString(request))
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated())
-                .andReturn();
+        LocalDate hoje = LocalDate.now();
+        String dataFormatada = hoje.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String url = "/pagamentos/periodo/?inicio=" + dataFormatada + "&termino=" + dataFormatada;
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/pagamentos/periodo?inicio=2021-10-10&termino=2021-12-12")
+        mockMvc.perform(MockMvcRequestBuilders.get(url)
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andReturn().getResponse();
+                .andExpect(jsonPath("$[0].valorTotalPago").value("10.0"));
     }
 
     @Test

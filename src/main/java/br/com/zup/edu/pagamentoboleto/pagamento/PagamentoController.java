@@ -54,7 +54,8 @@ public class PagamentoController {
             @RequestParam(name = "inicio") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate inicio,
             @RequestParam(name = "termino") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate termino) {
 
-        List<Pagamento> pagamentos = pagamentoRepository.findAllByDataPagamentoBetween(inicio, termino);
+        List<Pagamento> pagamentos = pagamentoRepository.
+                findAllByDataPagamentoBetweenAndStatusPagamento(inicio, termino, StatusPagamento.CONFIRMADO);
         return pagamentos.stream().map(ConsultaPagamentoResponse::new).collect(Collectors.toList());
     }
 }
