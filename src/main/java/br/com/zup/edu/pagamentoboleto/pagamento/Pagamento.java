@@ -14,6 +14,9 @@ public class Pagamento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
+    private Long clienteId;
+
     @NotBlank
     @Column(nullable = false)
     private String codigoDeBarras;
@@ -33,9 +36,10 @@ public class Pagamento {
     public Pagamento() {
     }
 
-    public Pagamento(String codigoDeBarras, BigDecimal valor) {
+    public Pagamento(String codigoDeBarras, BigDecimal valor, Long clienteId) {
         this.codigoDeBarras = codigoDeBarras;
         this.valor = valor;
+        this.clienteId = clienteId;
     }
 
     public Long getId() {

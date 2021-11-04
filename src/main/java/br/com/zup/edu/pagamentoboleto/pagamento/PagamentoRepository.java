@@ -10,7 +10,11 @@ import java.util.Optional;
 @Repository
 public interface PagamentoRepository extends JpaRepository<Pagamento, Long> {
 
-    List<Pagamento> findAllByDataPagamentoBetweenAndStatusPagamento(LocalDate inicio, LocalDate termino, StatusPagamento status);
+    List<Pagamento> findAllByDataPagamentoBetweenAndStatusPagamentoAndClienteId(
+            LocalDate inicio,
+            LocalDate termino,
+            StatusPagamento status,
+            Long clienteId);
 
     Optional<Pagamento> findByCodigoDeBarras(String codigoDeBarras);
 

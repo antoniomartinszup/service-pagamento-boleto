@@ -40,14 +40,14 @@
 
 * Cadastrar pagamento
   - POST -> /pagamentos/valorTotal
-  - Corpo: {"codigoDeBarras": "..."}
+  - Corpo: {"codigoDeBarras": "...", "clienteId": "..."}
   - Status Code: 201 CREATED
 * Confirmar pagamento
   - PATCH -> /pagamentos/{codigoDeBarras}/confirmar
   - Status Code: 200 OK
 * Consultar pagamentos por período
   - GET -> /pagamentos/periodo
-  - Query String: ?inicio=2021-10-10&termino=2021-12-12
+  - Query String: ?clienteId=1&inicio=2021-10-10&termino=2021-12-12
   - Status Code: 200 OK
 
 

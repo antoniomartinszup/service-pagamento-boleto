@@ -34,7 +34,10 @@ public class PagamentoController {
 
         // consultar codigo de barras no sistema bancario
         var boleto = bancoClient.buscarBoleto(pagamentoRequest.getCodigoDeBarras());
-        pagamentoRepository.save(new Pagamento(pagamentoRequest.getCodigoDeBarras(), boleto.getValorComJuros()));
+        pagamentoRepository.save(new Pagamento(
+                pagamentoRequest.getCodigoDeBarras(),
+                boleto.getValorComJuros(),
+                pagamentoRequest.getClienteId()));
         return boleto;
     }
 
@@ -51,11 +54,13 @@ public class PagamentoController {
 
     @GetMapping("/periodo")
     public List<ConsultaPagamentoResponse> buscarPorPeriodo(
+            @RequestParam(name = "clienteId") Long clienteId,
             @RequestParam(name = "inicio") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate inicio,
             @RequestParam(name = "termino") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate termino) {
 
         List<Pagamento> pagamentos = pagamentoRepository.
-                findAllByDataPagamentoBetweenAndStatusPagamento(inicio, termino, StatusPagamento.CONFIRMADO);
+                findAllByDataPagamentoBetweenAndStatusPagamentoAndClienteId(
+                        inicio, termino, StatusPagamento.CONFIRMADO, clienteId);
         return pagamentos.stream().map(ConsultaPagamentoResponse::new).collect(Collectors.toList());
     }
 }
