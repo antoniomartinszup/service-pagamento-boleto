@@ -16,6 +16,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
@@ -72,4 +74,22 @@ public class PagamentoControllerTest {
         assertEquals("CONFIRMADO", p.getStatusPagamento().toString());
     }
 
+    @Test
+    public void deveriaRetonarConsultaPorPeriodo() throws Exception {
+        PagamentoRequest request = new PagamentoRequest();
+        request.setCodigoDeBarras("12345678901231250320210000023450");
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/pagamentos/valorTotal")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(request))
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andReturn();
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/pagamentos/periodo?inicio=2021-10-10&termino=2021-12-12")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn().getResponse();
+    }
 }
