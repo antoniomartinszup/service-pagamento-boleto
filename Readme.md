@@ -3,6 +3,10 @@
 <p align="center">
   <img src="https://img.shields.io/static/v1?label=spring&message=framework&color=green&style=for-the-badge&logo=SPRING"/>
   <img src="http://img.shields.io/static/v1?label=Spring&message=2.5.6&color=red&style=for-the-badge&logo=spring"/>
+  <img src="https://img.shields.io/static/v1?label=&message=Kafka&color=white&style=for-the-badge&logo=Kafka"/>
+  <img src="https://img.shields.io/static/v1?label=&message=Docker&color=white&style=for-the-badge&logo=Docker"/>
+  <img src="https://img.shields.io/static/v1?label=&message=Jaeger&color=white&style=for-the-badge&logo=Jaeger"/>
+  <img src="https://img.shields.io/static/v1?label=&message=Prometheus&color=white&style=for-the-badge&logo=Prometheus"/>
   <img src="http://img.shields.io/static/v1?label=TESTES&message=%3E1&color=GREEN&style=for-the-badge"/>
   <img src="http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=RED&style=for-the-badge"/>
 </p>
@@ -21,6 +25,10 @@
 [Resultado Esperado](#resultado-esperado)
 
 [Metricas](#metricas)
+
+[Tracing](#tracing)
+
+[Kafka](#kafka)
 
 ## Descrição do projeto
 
@@ -71,11 +79,29 @@ http://localhost:8080/
 
 ## Metricas
 
-* Endpoints 
+* Endpoints - Prometheus
 ```
 http://localhost:8080/actuator
 
 http://localhost:8080/actuator/health
 
 http://localhost:8080/actuator/metrics
+
+http://localhost:9090/graph
+```
+
+## Tracing
+
+* Endpoint - Jaeger
+```
+http://localhost:16686/search
+
+```
+
+## Kafka
+
+* Endpoint - Kafdrop
+```
+http://localhost:19000
+
 ```
