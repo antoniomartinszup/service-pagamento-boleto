@@ -40,7 +40,7 @@
 
 * Cadastrar pagamento
   - POST -> /pagamentos/valorTotal
-  - Corpo: {"codigoDeBarras": "...", "clienteId": "..."}
+  - Corpo: {"codigoDeBarras": "...", "clienteId": "...", "emailDestinatario": "..."}
   - Status Code: 201 CREATED
 * Confirmar pagamento
   - PATCH -> /pagamentos/{codigoDeBarras}/confirmar
