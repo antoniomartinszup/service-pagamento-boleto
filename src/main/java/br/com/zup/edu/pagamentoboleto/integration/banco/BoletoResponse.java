@@ -55,4 +55,8 @@ public class BoletoResponse {
     public BigDecimal getValorComJuros() {
         return valorComJuros;
     }
+
+    public Long getId() {
+        return id;
+    }
 }
