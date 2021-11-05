@@ -22,8 +22,6 @@
 
 [Como rodar a aplicação](#como-rodar-a-aplicação)
 
-[Resultado Esperado](#resultado-esperado)
-
 [Metricas](#metricas)
 
 [Tracing](#tracing)
@@ -33,7 +31,8 @@
 ## Descrição do projeto
 
 <p align="justify">
-  A aplicação aqui em desenvolvimento tem o objetivo de pagamento de boleto. 
+  A aplicação aqui em desenvolvimento tem o objetivo de cadastrar pagamento de boleto consultando através do código de barras o serviço do banco onde é recuperado o valor total a ser pago.
+  Para consulta posterior dos pagamentos realizados o sistema tem a disposição a consulta por um período de data apresentando ao usuario os pagamentos realizados entre as datas pesquisadas.
 </p>
 
 ## Funcionalidades
@@ -54,6 +53,9 @@
 ## Pré-requisitos
 
 * [Docker](https://docs.docker.com/get-docker/)
+* [JAVA](https://www.java.com/pt-BR/)
+* [MAVEN](https://maven.apache.org/)
+
 
 
 ## Como rodar a aplicação:
@@ -70,20 +72,14 @@ docker-compose up -d
 
 * Iniciar a aplicação 
 
-* Executar as requisições para os endpoints do tipo **?**:
+* Executar as requisições para os endpoints do tipo **POST**, **PATCH** e **GET**:
 ```
-http://localhost:8080/
+http://localhost:8080/pagamentos/valorTotal
 
-http://localhost:8080/
+http://localhost:8080/pagamentos/{codigoDeBarras}/confirmar
+
+http://localhost:8080/pagamentos/periodo
 ```
-
-## Resultado Esperado
-
-- Em caso de sucesso:
-    - Retorno será um status de sucesso (200)
-
-- Em caso de falha:
-    - Retorno será um status de erro (?)
 
 ## Metricas
 
